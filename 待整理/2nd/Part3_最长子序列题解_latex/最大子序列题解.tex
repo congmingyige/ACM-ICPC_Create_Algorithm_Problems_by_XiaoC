@@ -1,0 +1,48 @@
+\documentclass{article}
+	\usepackage[UTF8]{ctex}
+	\usepackage{amsmath}
+	\usepackage{graphicx}
+	\usepackage{underscore}
+	\usepackage{geometry}
+	\usepackage{anysize}
+	\date{}
+	\title{最大子序列题解}
+	\geometry{top=10mm,bottom=15mm,left=25mm,right=25mm}
+	
+	\begin{document}
+		\maketitle \vspace{-50pt}
+		
+	\indent 式子转换如下：\\
+\begin{equation}\nonumber
+	\left\{
+	\begin{aligned}
+		b_{i-1}	\le b_{i} - \lceil \frac{x}{b_{i}} \rceil \\
+		a_{b_{i-1}} - \lfloor \frac{b_{i-1}}{y} \rfloor \le  a_{b_{i}} - \lfloor \frac{b_{i}}{y} \rfloor +k \\
+		k=
+    \left\{
+	    \begin{aligned}
+	    -1	\qquad b_{i-1}\%y<b_{i}\%y\\
+	    0	\qquad b_{i-1}\%y \ge b_{i}\%y
+		\end{aligned}
+	\right.
+	\end{aligned}
+	\right.
+\end{equation}
+
+	\indent 当使用$a_{i}$作为子序列新的数字时，可以从$a_{1},a_{2},\dots,a_{i-\lceil \frac{x}{b_{i}} \rceil}$可以作为延伸。$s(i)=i - \lceil \frac{x}{i} \rceil$是递增的，即每次把(数组)下标为$(max(s(i-1),0),s(i)]$的数字加入可选范围内。\\
+	\indent 根据下标模y的余数，数据分为y种类型。k值由当前数字下标和选择的数字的下标决定。无论k值如何，对于当前数字，都是选择数值范围在[minvalue,value]里的数字进行延伸，需要找到这些数字作为结尾的子序列的最大长度。\\
+	\indent 设$A_{i}=a_{b_{i-1}} - \lfloor \frac{b_{i-1}}{y} \rfloor$。可以使用树状数组和线段树进行求解。\\
+	\indent 根据下标模y的余数，开辟y个数据类型。\\
+	\indent 数据存在负数，同时A_{i}的最小值和最大值并不是$min{a_{j}}$和$max{a_{j}}$。把数字变为正数时，需要注意！\\
+	\indent 对于树状数组，sum改为max。\\
+	\indent 使用树状数组很方便，建议用树状数组而非线段树！万一空间一卡，或者线段树写错了，就gg了！\\
+	\indent 对于线段树，由于修改数据时，修改范围为1，所以没必要使用push_down。\\
+	\indent 对于线段树，关于开辟空间的大小，开$maxn<<1$太小(空间不够)，开$maxn<<2$太大(虽然保险，但是本题会MLE。本题是特殊情况。由于比赛平台的空间限制最多为256MB，再加上\sout{不想改数据}数据出得很好，所以$\cdots \cdots$)。设maxn在二进制下的位数为v，开$2^{v+1}$的空间。\\
+	\indent 若想方便、高效地使用线段树，建议学习zkw线段树。\\
+	\indent 初始化时，推荐memset()，它速度快！用for循环初始化，虽然总数据量为4亿，但是用比赛平台提交时，没有超时$\cdots \cdots$\\
+	\indent 总时间复杂度为O(T*n*y*log(m+n))，其中m为数字的范围(上界-下界+1)。\\
+	\indent 若是直接做，O(T*n*n)，超时。\\
+	\indent 当你会做此题时，就意味着你已经踏上了编程竞赛之旅并有机会在ACM/ICPC or CCPC现场赛拿个奖了，望各位加油！
+	\end
+	{document}
+	

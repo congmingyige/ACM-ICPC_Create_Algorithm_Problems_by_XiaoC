@@ -1,0 +1,51 @@
+\documentclass{article}
+	\usepackage[UTF8]{ctex}
+	\usepackage{amsmath}
+	\usepackage{graphicx}
+	\usepackage{underscore}
+	\usepackage{geometry}
+	\usepackage{anysize}
+	\date{}
+	\title{三方坐镇题解}
+	\geometry{top=10mm,bottom=15mm,left=25mm,right=25mm}
+	
+	\begin{document}
+		\maketitle \vspace{-50pt}
+		
+		\section{注意}
+			\indent 这道题非常容易写错！写的容易一定要细心，对代码进行检查时请多在纸上编写几个样例。\\
+			\indent 另外，本题无法使用随机撒点方法，但是可适用于验证代码是否正确。
+		
+		\section{突破点}
+			\indent 按照圆之间关系划分种类的方法是不可取的，因为数量太多了！\\
+			\indent 由于题目难度降低，可以通过''若三个圆两两相交，则输出 -1 ''对本道题进行突破。
+			
+		\section{做法}
+			\subsection{判断两个圆两两相交的情况}
+				\indent 两个圆相交的条件是两圆距离大于两圆半径差值，小于两圆半径之和，而并不是大于等于，小于等于，这两种情况分别对应内切和外切。
+			
+			\subsection{去除被包含的圆的计算}
+				\indent 圆A被圆B包含的条件是两圆距离小于等于圆A半径减去圆B半径，不能没有等于。\\
+				\indent 计算没有被另外的圆包含的面积之和。\\
+				\indent 若两(三)圆重合，保留一个圆。两圆重合的条件是圆心和半径相等。
+				
+			\subsection{去除两圆相交部分的计算}
+				
+				\indent 两圆相交部分只能计算一次。\\
+				\indent 相交部分为圆1扇形+圆2扇形-两个三角形。三角形可以通过海伦定理求出，两个扇形的周角可以通过余弦定理求出。其它方法也可以，不过略为复杂。不推荐使用设三角形底边的高为参数，求解方程的方法，因为三角形为锐角三角形，直角三角形，钝角三角形的情况都存在。
+\begin{figure}
+\begin{minipage}[t]{0.5\linewidth}
+\centering
+\includegraphics[width=3.1in]{3.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\linewidth}
+\centering
+\includegraphics[width=3.1in]{4.png}
+\end{minipage}
+\end{figure}
+				
+	\section{本题延伸}
+		\indent 关于三个圆的不重合面积之和(包括三个圆两两相交的情况)，可以采用圆的面积并(自行网络搜索)，这个方法也适用于多个圆的不重合面积之和。
+	\end
+	{document}
+	

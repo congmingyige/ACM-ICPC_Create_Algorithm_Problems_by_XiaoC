@@ -1,0 +1,53 @@
+\documentclass{article}
+	\usepackage[UTF8]{ctex}
+	\usepackage{amsmath}
+	\usepackage{graphicx}
+	\usepackage{underscore}
+	\usepackage{geometry}
+	\usepackage{anysize}
+	\date{}
+	\title{全新比赛机制题解}
+	\geometry{top=10mm,bottom=15mm,left=25mm,right=25mm}
+	
+	\begin{document}
+		\maketitle \vspace{-50pt}
+		
+		\section{dfs}
+		
+			\subsection{优化}
+			
+				\subsubsection{use +/-}
+				\indent one：$3^{13}*13 = 20726199$\\
+				\indent +/-：$2*(3+3^{2}+...+3^{12})+3^{13} = 2391483$
+				
+				\subsubsection{剪枝}
+				\indent 若当前使用时间超过当前完成最短时间，则结束。但判断的时间也不少。这个方法有利有弊。实际测试中，运行时间减少。
+				
+		\section{for循环}
+		\indent 如果不会dfs的话，用for循环。\\
+		\indent 考验毅力的时候了！ \\
+		\indent 快速修改代码方法 $Ctrl+R$
+
+		\section{dp}
+		\subsection{$O(n^{2})$}
+		\indent $f[x][y]$代表当前第一位同学花费x时间，第二位同学花费y时间，第三位同学花费的最小时间，操作次数为
+		$
+		\sum_{i=1}^{13} t_{ij}*
+		\sum_{i=1}^{13} t_{ij}
+		*13*3=260*260*13*3=2636400
+		$。
+		
+		\subsection{$O(n^{2})$}
+		\indent $f[x][y][z]$代表是否存在当前第一位同学花费x时间，第二位同学花费y时间，第三位同学花费z时间的方案，最大操作次数为
+		$
+		\sum_{i=0}^{12}(1+20*i)^{3}=148370079
+		$。\\
+		\indent 实际时间复杂度小于此，因为采用的是随机化数据。如果以平均值计算，操作次数为
+		$
+		\sum_{i=0}^{12}(1+10*i)^{3}=18844059
+		$
+		 ，正常来说不会超时。\\
+		\indent 存储方面，采用滚动数组，即$f[x][y][z][2]$，上一个状态和当前状态为0和1，每次两者的值进行交换。本题没有卡空间，故没必要优化空间，避免运行时间的增加。
+		
+	\end
+	{document}
